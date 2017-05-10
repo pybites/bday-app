@@ -33,6 +33,7 @@ if __name__ == '__main__':
 
     from bdays import get_birthdays
 
+    db.drop_all()
     db.create_all()
 
     for bd in sorted(get_birthdays('cal.ics'), key=lambda x: (x.bday.month, x.bday.day)):
