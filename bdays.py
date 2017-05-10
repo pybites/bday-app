@@ -16,7 +16,7 @@ from icalendar import Calendar
 
 DEFAULT_CAL = 'cal.ics'
 
-Bday = namedtuple('Bday', 'name month day')
+Bday = namedtuple('Bday', 'name bday')
 
 
 def get_birthdays(cal):
@@ -29,7 +29,7 @@ def get_birthdays(cal):
                     continue
                 name = name.replace("'s birthday", "")
                 bday = component.get('DTSTART').dt
-                yield Bday(name=name, month=bday.month, day=bday.day)
+                yield Bday(name=name, bday=bday)
 
 
 if __name__ == '__main__':

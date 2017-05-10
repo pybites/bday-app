@@ -10,18 +10,16 @@ db = SQLAlchemy(app)
 class Birthday(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True)
-    month = db.Column(db.Integer)
-    day = db.Column(db.Integer)
+    bday = db.Column(db.DateTime)
     notify = db.Column(db.Boolean)
 
-    def __init__(self, name, month, day, notify=False):
+    def __init__(self, name, bday, notify=False):
         self.name = name
-        self.month = month
-        self.day = day
+        self.bday = bday
         self.notify = False
 
     def __repr__(self):
-        return '<Birthday %r %r %r>' % (self.name, self.month, self.day, self.notify)
+        return '<Birthday %r %r %r>' % (self.name, self.bday, self.notify)
 
 
 if __name__ == '__main__':
