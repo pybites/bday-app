@@ -15,7 +15,7 @@ THIS_YEAR = 2017
 
 class Birthday(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True)
+    name = db.Column(db.String(120))
     bday = db.Column(db.DateTime)
     notify = db.Column(db.Boolean)
 
