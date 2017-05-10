@@ -1,14 +1,3 @@
-# download your FB birthday calendar from
-# https://www.facebook.com/events/upcoming
-#
-# = Birthday link under "You can add your events to Microsoft Outlook, Google Calendar or Apple Calendar..."
-#
-# This gets you a link like: 
-# http://facebook.com/ical/b.php?uid=123&key=XYZ
-#
-# using icalendar, found via:
-# http://stackoverflow.com/questions/3408097/parsing-files-ics-icalendar-using-python
-
 from collections import namedtuple
 import sys
 
