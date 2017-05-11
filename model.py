@@ -1,9 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-# for printscreens for blog post I want real dates, but names stripped out
-from helpers import get_random_name
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///birthdays.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # mute warnings
@@ -31,6 +28,10 @@ class Birthday(db.Model):
 if __name__ == '__main__':
     # if ran as script create the birthday table and load in all birthdays
 
+    import faker
+    from faker import Factory
+    fake = Factory.create()
+
     from bdays import get_birthdays
 
     db.drop_all()
@@ -40,7 +41,7 @@ if __name__ == '__main__':
 
         # no real names
         if TEST_MODE:
-            name = get_random_name()
+            name = fake.name()
         else:
             name = bd.name
     
