@@ -2,9 +2,15 @@
 
 Steps to get you up2speed
 
-* Download your [FB birthday calendar](https://www.facebook.com/events/upcoming) ("Birthday" link under "You can add your events to Microsoft Outlook, Google Calendar or Apple Calendar...")
+* Download your [FB birthday calendar](https://www.facebook.com/events/upcoming) 
 
-* This should get you a link like: http://facebook.com/ical/b.php?uid=123&key=XYZ
+	* Click the "Birthday" link under "You can add your events to Microsoft Outlook, Google Calendar or Apple Calendar..."
+
+	* You should get a popup, something like: "Do you want to allow this page to open 'Calendar'?"
+
+	* Click Allow. In your calendar app you should see the download link, something like webcal://www.facebook.com/ical/b.php?uid=YOUR_UID&key=SESSION_KEY
+
+	* Strip off the 'webcal://www.' part and put the link in your browser. It should not download the ics file.
 
 * Save the file as "cal.ics"
 
