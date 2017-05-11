@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Never Forget a Birthday</title>
+    {% endblock %}
+  </head>
+  <body>
+	<h1><a href='/'>Never Forget a Birthday</a></h1>
+    <div id="content">{% block content %}{% endblock %}</div>
+  </body>
+</html>

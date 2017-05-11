@@ -1,39 +1,37 @@
-<!doctype html>
+{% extends "base.html" %}
+{% block content %}
 
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<table class="pure-table">
+		<tr>
+		{% for m in months %}
+			<td 
+			{% if month == m %}
+				class='active'
+			{% endif %}
+			><a href='{{ loop.index }}'>{{ m }}</a></td>
+		{% endfor %}
+		</tr>
+	</table>
 
-{% if months %}
-    <table class="pure-table">
-        <tr>
-        {% for month in months %}
-            <td><a href='{{ loop.index }}'>{{ month }}</a></td>
-        {% endfor %}
-        </tr>
-    </table>
-{% endif %}
+	{% if data %}
+		<table class="pure-table">
+			<tr>
+				<th>Name</th>
+				<th>Birthday</th>
+				<th>Alert</th>
+			</tr>
+			{% for d in data %}
+				<tr>
+					<td>{{ d.name }}</td>
+					<td>{{ d.bday.strftime("%b %d") }}</td>
+						{% if d.notify %}
+							<td><a href="/notify/{{ d.id }}"><img src='{{ url_for('static', filename='images/on.png') }}' alt='on'></a></td>
+						{% else %}
+							<td><a href="/notify/{{ d.id }}"><img src='{{ url_for('static', filename='images/off.png') }}' alt='off'></a></td>
+						{% endif %}
+				</tr>
+			{% endfor %}
+		</table>
+	{% endif %}
 
-<h1>Birthdays 
-{% if month %}
-	in {{ month }}:
-{% elif upcoming %}
-    upcoming {{ upcoming }} days:
-{% endif %}
-</h1>
-                               
-{% if data %}
-    <table class="pure-table">
-        <tr>
-            <th>Name</th>
-            <th>Birthday</th>
-            <th>Notify</th>
-        </tr>
-        {% for d in data %}
-            <tr>
-                <td>{{ d['name'] }}</td>
-                <td>{{ d['bday'].strftime("%b %d") }}</td>
-                <td>{{ d['notify'] }}</td>
-            </tr>		
-        {% endfor %}
-    </table>
-{% endif %}
+{% endblock %}

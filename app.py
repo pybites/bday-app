@@ -1,9 +1,9 @@
 import calendar
 from datetime import datetime, date, timedelta
 
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, redirect, request
 
-from model import Birthday, app, THIS_YEAR
+from model import Birthday, app, db, THIS_YEAR
 
 MONTHS = list(calendar.month_name)[1:]
 UPCOMING_DAYS = 14
@@ -41,6 +41,17 @@ def bdays_month(month):
                            data=bdays, 
                            month=month_name,
                            months=MONTHS)
+
+
+@app.route('/notify/<int:person>')
+def notify(person):
+    bday = Birthday.query.get(person)
+    if not bday:
+        return redirect(request.referrer)
+    bday.notify = False if bday.notify else True
+    db.session.commit()
+    return redirect(request.referrer)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
