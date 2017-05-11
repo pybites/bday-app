@@ -3,6 +3,16 @@
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
+{% if months %}
+    <table class="pure-table">
+        <tr>
+        {% for month in months %}
+            <td><a href='{{ loop.index }}'>{{ month }}</a></td>
+        {% endfor %}
+        </tr>
+    </table>
+{% endif %}
+
 <h1>Birthdays 
 {% if month %}
 	in {{ month }}:

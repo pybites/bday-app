@@ -5,6 +5,7 @@ from flask import Flask, render_template, abort
 
 from model import Birthday, app, THIS_YEAR
 
+MONTHS = list(calendar.month_name)[1:]
 UPCOMING_DAYS = 14
 
 
@@ -15,7 +16,10 @@ def upcoming():
 
     bdays = Birthday.query.filter(Birthday.bday <= end).filter(Birthday.bday >= start)
 
-    return render_template("index.html", data=bdays, upcoming=UPCOMING_DAYS)
+    return render_template("index.html", 
+                           data=bdays, 
+                           upcoming=UPCOMING_DAYS,
+                           months=MONTHS)
 
 
 @app.route('/<int:month>')
@@ -33,8 +37,10 @@ def bdays_month(month):
     end = date(THIS_YEAR, month, num_days)
 
     bdays = Birthday.query.filter(Birthday.bday <= end).filter(Birthday.bday >= start)
-    return render_template("index.html", data=bdays, month=month_name)
-
+    return render_template("index.html", 
+                           data=bdays, 
+                           month=month_name,
+                           months=MONTHS)
 
 if __name__ == "__main__":
     app.run(debug=True)
