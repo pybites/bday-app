@@ -10,7 +10,7 @@ form {
 }
 
 table {
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 th {
@@ -22,8 +22,6 @@ a {
 }
 
 td, th {
-	padding: 5px;
-
     border: 1px solid #ddd !important;
 }
 
@@ -36,16 +34,13 @@ td, th {
 	text-decoration: line-through;
 }
 
-.active, .active a {
-    background-color: #000;
-    color: #fff;
+.active {
+    background-color: #000 !important;
+}
+.active a {
+	color: #fff;
 }
 
-.pure-button {
-	min-width: 100px;
-	font-size: 85%;
-	padding: 5px;
-}
 .button-success,
 .button-error,
 .button-warning,
