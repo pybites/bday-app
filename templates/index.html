@@ -8,7 +8,13 @@
 			{% if month == m %}
 				class='active'
 			{% endif %}
-			><a href='{{ loop.index }}'>{{ m }}</a></td>
+			><a href='
+			{% if loop.index0 == 0 %}
+                /
+			{% else %}
+                {{ loop.index0 }}
+			{% endif %}
+            '>{{ m }}</a></td>
 		{% endfor %}
 		</tr>
 	</table>
@@ -19,16 +25,27 @@
 				<th>Name</th>
 				<th>Birthday</th>
 				<th>Alert</th>
+				<th>Congrat'd</th>
 			</tr>
 			{% for d in data %}
 				<tr>
 					<td>{{ d.name }}</td>
 					<td>{{ d.bday.strftime("%b %d") }}</td>
-						{% if d.notify %}
-							<td><a href="/notify/{{ d.id }}"><img src='{{ url_for('static', filename='images/on.png') }}' alt='on'></a></td>
-						{% else %}
-							<td><a href="/notify/{{ d.id }}"><img src='{{ url_for('static', filename='images/off.png') }}' alt='off'></a></td>
-						{% endif %}
+
+                    {% if d.notify %}
+                        <td><a href="/notify/{{ d.id }}"><img src='{{ url_for('static', filename='images/on.png') }}' alt='on'></a></td>
+                    {% else %}
+                        <td><a href="/notify/{{ d.id }}"><img src='{{ url_for('static', filename='images/off.png') }}' alt='off'></a></td>
+                    {% endif %}
+
+                    {% if d.done == True %}
+                        <td><a href="/done/{{ d.id }}"><img src='{{ url_for('static', filename='images/on.png') }}' alt='on'></a></td>
+                    {% elif d.done == False %}
+                        <td><a href="/done/{{ d.id }}"><img src='{{ url_for('static', filename='images/off.png') }}' alt='off'></a></td>
+                    {% else %}
+                        <!-- no notification set or needed -->
+                        <td></td>
+                    {% endif %}
 				</tr>
 			{% endfor %}
 		</table>

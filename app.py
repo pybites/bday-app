@@ -5,7 +5,8 @@ from flask import Flask, render_template, abort, redirect, request
 
 from model import Birthday, app, db, THIS_YEAR
 
-MONTHS = list(calendar.month_name)[1:]
+UPCOMING = 'Upcoming'
+MONTHS = [UPCOMING] + list(calendar.month_name)[1:]
 UPCOMING_DAYS = 14
 
 
@@ -18,7 +19,7 @@ def upcoming():
 
     return render_template("index.html", 
                            data=bdays, 
-                           upcoming=UPCOMING_DAYS,
+                           month=UPCOMING,
                            months=MONTHS)
 
 
