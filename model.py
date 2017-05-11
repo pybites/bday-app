@@ -22,7 +22,7 @@ class Birthday(db.Model):
     def __init__(self, name, bday, notify=False):
         self.name = name
         self.bday = bday
-        self.notify = False
+        self.notify = notify
 
     def __repr__(self):
         return '<Birthday %r %r %r>' % (self.name, self.bday, self.notify)
