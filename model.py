@@ -1,12 +1,16 @@
+import sys
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from faker import Factory
+
+from bdays import get_birthdays
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///birthdays.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # mute warnings
 db = SQLAlchemy(app)
 
-TEST_MODE = True  # no real names
 THIS_YEAR = 2017
 
 
@@ -27,12 +31,11 @@ class Birthday(db.Model):
 
 if __name__ == '__main__':
     # if ran as script create the birthday table and load in all birthdays
+    test_mode = True  # no real names
+    if len(sys.argv) > 1:
+        test_mode = False
 
-    import faker
-    from faker import Factory
     fake = Factory.create()
-
-    from bdays import get_birthdays
 
     db.drop_all()
     db.create_all()
@@ -40,7 +43,7 @@ if __name__ == '__main__':
     for bd in sorted(get_birthdays('cal.ics'), key=lambda x: (x.bday.month, x.bday.day)):
 
         # no real names
-        if TEST_MODE:
+        if test_mode:
             name = fake.name()
         else:
             name = bd.name
