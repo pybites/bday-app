@@ -1,4 +1,5 @@
 click==6.7
+Faker==0.7.12
 Flask==0.12.1
 Flask-SQLAlchemy==2.2
 icalendar==3.11.3
