@@ -1,8 +1,8 @@
 body {
-		font : 85% "Lucida Grande", Helvetica, "Lucida Sans Unicode", Arial, Verdana, sans-serif;
+	font : 85% "Lucida Grande", Helvetica, "Lucida Sans Unicode", Arial, Verdana, sans-serif;
   	color:#000;
-    width: 800px;
     margin: 0 auto;
+    width: 800px;
 }
 
 form {
@@ -11,6 +11,7 @@ form {
 
 table {
     margin: 20px 0;
+    width: 800px;
 }
 
 th {
@@ -69,3 +70,4 @@ td, th {
 .button-inactive {
 	opacity: 0.3;
 }
+

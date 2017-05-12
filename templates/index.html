@@ -3,18 +3,18 @@
 
 	<table class="pure-table">
 		<tr>
-		{% for m in months %}
+		{% for t in tabs %}
 			<td 
-			{% if month == m %}
-				class='active'
-			{% endif %}
+                {% if active_tab == t %}
+                    class='active'
+                {% endif %}
 			><a href='
-			{% if loop.index0 == 0 %}
-                /
-			{% else %}
-                {{ loop.index0 }}
-			{% endif %}
-            '>{{ m }}</a></td>
+                {% if loop.index0 == 0 %}
+                    /
+                {% else %}
+                    {{ loop.index0 }}
+                {% endif %}
+            '>{{ t }}</a></td>
 		{% endfor %}
 		</tr>
 	</table>
