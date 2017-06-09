@@ -19,14 +19,19 @@ class Birthday(db.Model):
     name = db.Column(db.String(120))
     bday = db.Column(db.DateTime)
     notify = db.Column(db.Boolean)
+    phone = db.Column(db.String(20))
 
-    def __init__(self, name, bday, notify=False):
+    def __init__(self, name, bday, phone=None, notify=False):
         self.name = name
         self.bday = bday
+        self.phone = phone
         self.notify = notify
 
     def __repr__(self):
-        return '<Birthday %r %r %r>' % (self.name, self.bday, self.notify)
+        return '<Birthday %r %r %r %r>' % (self.name,
+                                           self.bday,
+                                           self.phone,
+                                           self.notify)
 
 
 if __name__ == '__main__':
@@ -47,7 +52,7 @@ if __name__ == '__main__':
             name = fake.name()
         else:
             name = bd.name
-    
+
         # import all bdays with THIS_YEAR to make it easier to query later
         bday = bd.bday.replace(year=THIS_YEAR)
         bd_obj = Birthday(name, bday)

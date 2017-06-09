@@ -4,7 +4,7 @@
 	<table class="pure-table">
 		<tr>
 		{% for t in tabs %}
-			<td 
+			<td
                 {% if active_tab == t %}
                     class='active'
                 {% endif %}
@@ -24,27 +24,17 @@
 			<tr>
 				<th>Name</th>
 				<th>Birthday</th>
-				<th>Alert</th>
-				<th>Congrat'd</th>
+				<th>Phone</th>
+				<th>Notify</th>
 			</tr>
-			{% for d in data %}
+			{% for record in data %}
 				<tr>
-					<td>{{ d.name }}</td>
-					<td>{{ d.bday.strftime("%b %d") }}</td>
-
-                    {% if d.notify %}
-                        <td><a href="/notify/{{ d.id }}"><img src='{{ url_for('static', filename='images/on.png') }}' alt='on'></a></td>
+					<td>{{ record.name }}</td>
+					<td>{{ record.bday.strftime("%b %d") }}</td>
+                    {% if record.notify %}
+                        <td><a href="/notify/{{ record.id }}"><img src='{{ url_for('static', filename='images/on.png') }}' alt='on'></a></td>
                     {% else %}
-                        <td><a href="/notify/{{ d.id }}"><img src='{{ url_for('static', filename='images/off.png') }}' alt='off'></a></td>
-                    {% endif %}
-
-                    {% if d.done == True %}
-                        <td><a href="/done/{{ d.id }}"><img src='{{ url_for('static', filename='images/on.png') }}' alt='on'></a></td>
-                    {% elif d.done == False %}
-                        <td><a href="/done/{{ d.id }}"><img src='{{ url_for('static', filename='images/off.png') }}' alt='off'></a></td>
-                    {% else %}
-                        <!-- no notification set or needed -->
-                        <td></td>
+                        <td><a href="/notify/{{ record.id }}"><img src='{{ url_for('static', filename='images/off.png') }}' alt='off'></a></td>
                     {% endif %}
 				</tr>
 			{% endfor %}
