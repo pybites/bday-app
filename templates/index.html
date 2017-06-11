@@ -25,16 +25,15 @@
 				<th>Name</th>
 				<th>Birthday</th>
 				<th>Phone</th>
-				<th>Notify</th>
 			</tr>
 			{% for record in data %}
 				<tr>
 					<td>{{ record.name }}</td>
 					<td>{{ record.bday.strftime("%b %d") }}</td>
-                    {% if record.notify %}
-                        <td><a href="/notify/{{ record.id }}"><img src='{{ url_for('static', filename='images/on.png') }}' alt='on'></a></td>
+                    {% if record.phone %}
+                        <td>{{ record.phone }}</td>
                     {% else %}
-                        <td><a href="/notify/{{ record.id }}"><img src='{{ url_for('static', filename='images/off.png') }}' alt='off'></a></td>
+                        <td>-</td>
                     {% endif %}
 				</tr>
 			{% endfor %}

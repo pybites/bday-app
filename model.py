@@ -1,3 +1,4 @@
+import os
 import sys
 
 from flask import Flask
@@ -6,32 +7,31 @@ from faker import Factory
 
 from bdays import get_birthdays
 
+LOCALHOST = 'http://127.0.0.1:5000'
+THIS_YEAR = 2017
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///birthdays.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # mute warnings
+app.config['SERVER_NAME'] = os.environ.get('TWILIO_APP_URL') or LOCALHOST
 db = SQLAlchemy(app)
-
-THIS_YEAR = 2017
 
 
 class Birthday(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
     bday = db.Column(db.DateTime)
-    notify = db.Column(db.Boolean)
     phone = db.Column(db.String(20))
 
-    def __init__(self, name, bday, phone=None, notify=False):
+    def __init__(self, name, bday, phone=None):
         self.name = name
         self.bday = bday
         self.phone = phone
-        self.notify = notify
 
     def __repr__(self):
-        return '<Birthday %r %r %r %r>' % (self.name,
-                                           self.bday,
-                                           self.phone,
-                                           self.notify)
+        return '<Birthday %r %r %r>' % (self.name,
+                                        self.bday,
+                                        self.phone)
 
 
 if __name__ == '__main__':
@@ -45,7 +45,8 @@ if __name__ == '__main__':
     db.drop_all()
     db.create_all()
 
-    for bd in sorted(get_birthdays('cal.ics'), key=lambda x: (x.bday.month, x.bday.day)):
+    for bd in sorted(get_birthdays('cal.ics'),
+                     key=lambda x: (x.bday.month, x.bday.day)):
 
         # no real names
         if test_mode:
