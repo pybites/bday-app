@@ -64,6 +64,16 @@ def search():
                            tabs=tabs)
     
 
+@app.route('/friends/<int:friendid>')
+def update(friendid):
+    friend = Birthday.query.filter(Birthday.id == friendid).first()
+    return render_template('update.html')
+
+
+@app.route('/birthday/<int:friendid>')
+def send_card():
+    return render_template('card.html')
+
 
 @app.route('/notify/<int:person>')
 def notify(person):
