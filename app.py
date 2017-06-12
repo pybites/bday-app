@@ -10,6 +10,8 @@ from sqlalchemy import asc
 import requests
 
 from model import Birthday, app, db, THIS_YEAR
+from notify import BASE_URL
+from sms import send_sms
 from text_on_image import download_url, create_img_with_text, CARDS
 
 DEFAULT_FIRST_TAB = 'Upcoming'
@@ -153,9 +155,11 @@ def confirm_card(friendid):
     if action not in ('verify', 'send'):
         abort(400, 'Invalid action')
 
+    friend = _get_friend_or_abort(friendid)
+
     if action == 'verify':
-        friend = _get_friend_or_abort(friendid)
         error = None
+        utstamp = str(int(time.time()))
 
         if not msg:
             error = 'Please provide a message'
@@ -177,7 +181,6 @@ def confirm_card(friendid):
             img_dest = CARDS + '/' + name + '.png'
             create_img_with_text(base_img, msg, out_file=img_dest)
             url = url_for('get_card', name=name)
-            utstamp = str(int(time.time()))
             print(url)
 
         return render_template('send.html',
@@ -188,26 +191,33 @@ def confirm_card(friendid):
 
     else: 
         # good to send!
-        if url:
-            print('sending pic: ' + url) 
-        else:
-            print('sending msg: ' + msg) 
 
-        name = request.form.get('name')
-        confirmation = 'Birthday Message sent to {}'.format(name)
+        if url:
+            media = BASE_URL + url
+        else:
+            media = None
+
+        try:
+            send_sms(msg, media=media, to_phone=friend.phone)
+        except Exception as exc:
+            print('Cannot send SMS:')
+            print(exc)
+            print('Called send_sms with:')
+            print(msg, media, friend.phone)
+
+        confirmation = 'Birthday Message sent to {}'.format(friend.name)
         back_url = url_for('index')
-        
+
         return render_template("send.html",
                                confirmation=confirmation,
                                back_url=back_url)
 
 
-
-@app.route("/cards/<name>")
+@app.route("/cards/<name>.png")
 def get_card(name):
     # https://stackoverflow.com/questions/21714653/flask-css-not-updating
-    img = 'cards/' + name + '.png' #+ '?' + str(int(time.time()))
-    #url = url_for('static', filename=img)
+    # doing this here does not work, do it in template img tag
+    img = 'cards/' + name + '.png'
     return send_file(img, mimetype='image/png')
 
 
