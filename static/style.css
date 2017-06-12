@@ -87,3 +87,6 @@ textarea {
 .currentDate {
 	border: 2px solid green; 
 }
+.loginSection {
+	padding: 15px 0 0 10px;
+}

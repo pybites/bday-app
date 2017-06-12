@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    
+    {% for message in get_flashed_messages() %}
+        <p class='alert'>{{ message }}</p>
+    {% endfor %}
+
+    <form class="pure-form pure-form-stacked" action='' method='POST'>
+        <fieldset>
+
+            <input type="text" id="username" name="username" placeholder="User" value="{{ user if user != None }}">
+            <input type="password" id="password" name="password" placeholder="Password">
+
+            <button type="submit" class="pure-button pure-button-primary">Login</button>
+        </fieldset>
+    </form>
+
+{% endblock %}

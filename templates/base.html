@@ -11,8 +11,15 @@
   </head>
   <body>
     <div class="pure-g">
-        <div class="pure-u-4-5">
+        <div class="pure-u-2-5">
 			<h1><a href='/'>Never Forget a Birthday</a></h1>
+        </div>
+        <div class="pure-u-2-5">
+            <p class='loginSection'>
+				{% if session.get('logged_in') %}
+					Welcome back {{ session['logged_in'] }}, <a href="{{ url_for('logout') }}">Logout</a>
+				{% endif %}
+			</p>
         </div>
         <div class="pure-u-1-5">
             <form id="search" class="pure-form" action="/search" method="get">
