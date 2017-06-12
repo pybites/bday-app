@@ -13,7 +13,6 @@ THIS_YEAR = 2017
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///birthdays.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # mute warnings
-app.config['SERVER_NAME'] = os.environ.get('TWILIO_APP_URL') or LOCALHOST
 db = SQLAlchemy(app)
 
 
