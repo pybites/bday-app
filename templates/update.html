@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    
+    {% if error %}
+        <p class='alert'>{{ error }}</p>
+    {% endif%}
+
+    <form class="pure-form pure-form-stacked" action='' method='POST'>
+        <fieldset>
+            <legend>Add a phone number for {{ friend.name }}</legend>
+
+            <input type="text" id="phone" name="phone" value="{{ friend.phone if friend.phone != None }}">
+
+            <button type="submit" class="pure-button pure-button-primary">{{ 'Update' if friend.phone else 'Add' }} Phone Number</button>
+
+        </fieldset>
+    </form>
+
+{% endblock %}

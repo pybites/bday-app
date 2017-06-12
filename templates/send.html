@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    
+    {% if error %}
+        <p class='alert'>{{ error }}</p>
+
+	{% elif confirmation %}
+		<p class='ok'>{{ confirmation }} - <a href="{{ back_url }}">go back</a></p>
+
+	{% else %}
+		<h2>Confirmation Birthday Message to {{ friend.name }}</h2>
+
+		<form class="pure-form pure-form-stacked" action='/birthday/{{ friend.id }}/confirm' method='POST'>
+			<fieldset>
+				<legend>You are about to SMS the following {{ 'image' if url else 'message' }} to {{ friend.phone }}</legend>
+
+				{% if url %}
+					<img src='{{ url }}?{{ utstamp }}'>
+				{% else %}
+					<blockquote>{{ msg }}</blockquote>
+				{% endif %}
+
+				<input type="hidden" id="msg" name="msg" value="{{ msg }}">
+				<input type="hidden" id="url" name="url" value="{{ url }}">
+				<input type="hidden" id="name" name="name" value="{{ friend.name }}">
+				<input type="hidden" id="action" name="action" value="send">
+                <br>
+
+				<button type="submit" class="pure-button pure-button-primary">Yes, please send!</button>
+
+                (hit browser back button to edit)
+			</fieldset>
+		</form>
+    {% endif %}
+
+{% endblock %}

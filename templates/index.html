@@ -21,20 +21,34 @@
 
 	{% if data %}
 		<table class="pure-table">
-			<tr>
+		    <tr>
 				<th>Name</th>
 				<th>Birthday</th>
 				<th>Phone</th>
+				<th></th>
 			</tr>
 			{% for record in data %}
-				<tr>
-					<td>{{ record.name }}</td>
+                {% if record.bday.date() == now %}
+                    <tr class='currentDate'>
+                {% else %}
+                    <tr>
+                {% endif %}
+                    <td>
+                        {% if record.bday.date() == now %}
+                            <a href="/birthday/{{ record.id }}"><img src="{{ url_for('static', filename='images/send_sms.png') }}" alt="send sms"></a>&nbsp;
+                        {% endif %}
+                        {{ record.name }}
+                    </td>
 					<td>{{ record.bday.strftime("%b %d") }}</td>
                     {% if record.phone %}
                         <td>{{ record.phone }}</td>
                     {% else %}
                         <td>-</td>
                     {% endif %}
+                    <td>
+                        <a href="/friends/{{ record.id }}"><img src="{{ url_for('static', filename='images/edit.png') }}" alt="edit"></a>
+                    </td>
+
 				</tr>
 			{% endfor %}
 		</table>

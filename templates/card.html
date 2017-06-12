@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    
+    {% if error %}
+        <p class='alert'>{{ error }}</p>
+    {% endif%}
+
+    <h2>Send a Birthday Message to {{ friend.name }}</h2>
+
+    <form class="pure-form pure-form-stacked" action='/birthday/{{ friend.id }}/confirm' method='POST'>
+        <fieldset>
+            <legend>If you provide an Image URL your message will be added on top of it, otherwise it will be send as plain text</legend>
+
+            <textarea type="text" id="msg" name="msg" placeholder="Your Message">{{ msg if msg != None }}</textarea>
+
+            <input type="text" id="url" name="url" placeholder="Image URL" value="{{ url if url != None }}">
+
+            <input type="hidden" id="action" name="action" value="verify">
+
+            <button type="submit" class="pure-button pure-button-primary">Verify</button>
+        </fieldset>
+    </form>
+
+{% endblock %}
