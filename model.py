@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from faker import Factory
 
 from bdays import get_birthdays
+from env import SECRET_KEY
 
 LOCALHOST = 'http://127.0.0.1:5000'
 THIS_YEAR = 2017
@@ -13,6 +14,8 @@ THIS_YEAR = 2017
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///birthdays.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # mute warnings
+app.secret_key = SECRET_KEY
+
 db = SQLAlchemy(app)
 
 

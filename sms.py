@@ -1,19 +1,8 @@
-import os
-import sys
-
 from twilio.rest import Client
+from env import ACCOUNT_SID, AUTH_TOKEN
+from env import FROM_PHONE, ADMIN_PHONE
 
-ACCOUNT_SID = os.environ.get('TWILIO_SID') or sys.exit('need account sid')
-AUTH_TOKEN = os.environ.get('TWILIO_TOK') or sys.exit('need auth token')
 CLIENT = Client(ACCOUNT_SID, AUTH_TOKEN)
-
-FROM_PHONE = os.environ.get('TWILIO_FROM_PHONE')
-if not FROM_PHONE:
-    sys.exit('need Twilio phone number to send from')
-
-ADMIN_PHONE = os.environ.get('TWILIO_ADMIN_PHONE')
-if not ADMIN_PHONE:
-    sys.exit('need admin phone to send notifications to')
 
 
 def send_sms(message, media=None, to_phone=ADMIN_PHONE):

@@ -3,4 +3,5 @@
 *pyc
 *swp
 cards/*png
+env.conf
 venv
