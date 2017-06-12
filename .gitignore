@@ -2,4 +2,6 @@
 *db
 *pyc
 *swp
+cards/*
+!cards/index.html
 venv
