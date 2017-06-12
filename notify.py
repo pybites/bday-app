@@ -9,7 +9,7 @@ from sms import send_sms
 
 DAYS_IN_ADVANCE = 0
 TODAY = datetime.now() + timedelta(days=DAYS_IN_ADVANCE)
-BASE_URL = app.config.get('SERVER_NAME', 'http://127.0.0.1:5000')
+BASE_URL = app.config.get('SERVER_NAME') or 'http://127.0.0.1:5000'
 CARD_LINK = BASE_URL + '/birthday/{friendid}'
 MSG = '''Birthday{plural} today:
 
@@ -36,12 +36,11 @@ def job():
 
     if bdays:
         msg = _create_msg(bdays)
-        print(msg)
-        # send_sms(msg)
+        send_sms(msg)
 
 
 if __name__ == '__main__':
-    schedule.every().day.at('00:10').do(job)
+    schedule.every().day.at('00:01').do(job)
 
     while True:
         schedule.run_pending()
