@@ -32,7 +32,7 @@ def job():
     bdays = Birthday.query.filter(and_(
             extract('day', Birthday.bday) == TODAY.day,
             extract('month', Birthday.bday) == TODAY.month,
-            Birthday.phone != None)).all()
+            Birthday.phone != None)).all()  # noqa E711
 
     if bdays:
         msg = _create_msg(bdays)

@@ -17,5 +17,5 @@ def send_sms(message, media=None, to_phone=ADMIN_PHONE):
 
 if __name__ == '__main__':
     msg = 'Keep cool and code in Python'
-    media = 'https://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-code-python-61.png'
+    media = 'https://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-code-python-61.png'  # noqa E501
     send_sms(msg, media)
