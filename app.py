@@ -240,8 +240,11 @@ def confirm_card(friendid):
     else:
         # good to send!
 
+        # make sure no cached image is sent
+        utstamp = str(int(time.time()))
+
         if url:
-            media = BASE_URL + url
+            media = BASE_URL + url + '?' + utstamp
         else:
             media = None
 
