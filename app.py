@@ -58,6 +58,10 @@ def _is_valid_url(url):
         return False
 
 
+def _phone_already_in_db(phone):
+    return Birthday.query.filter(Birthday.phone == phone).first()
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user = None
@@ -158,10 +162,7 @@ def update(friendid):
             error = 'Please fill in phone number'
         elif not re.match('^\+\d+$', phone):
             error = 'Please fill in phone as +digits (e.g. +34666555444)'
-
-        equal_phones_in_db = Birthday.query.filter(
-                             Birthday.phone == phone).first()
-        if equal_phones_in_db:
+        elif _phone_already_in_db(phone):
             error = '{} already in database'.format(phone)
 
         if not error:
