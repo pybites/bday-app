@@ -248,7 +248,7 @@ def confirm_card(friendid):
         else:
             media = None
 
-        logger.debug('Called send_sms with: {}, {}, {}'.format(msg, media, friend.phone))
+        logger.debug('Called send_sms with: {}, {}, {}'.format(msg, media, friend.phone))  # noqa E501
         try:
             send_sms(msg, media=media, to_phone=friend.phone)
             logger.info('SMS sent ok')
