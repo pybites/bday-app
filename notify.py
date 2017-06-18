@@ -1,16 +1,17 @@
 from datetime import datetime, timedelta
 import time
 
-from model import Birthday, app
+from model import Birthday
 from sqlalchemy import extract, and_
 import schedule
 
+from env import BASE_URL
 from sms import send_sms
 
 DAYS_IN_ADVANCE = 0
 TODAY = datetime.now() + timedelta(days=DAYS_IN_ADVANCE)
-BASE_URL = app.config.get('SERVER_NAME') or 'http://127.0.0.1:5000'
-CARD_LINK = BASE_URL + '/birthday/{friendid}'
+LOCALHOST = 'http://127.0.0.1:5000'
+CARD_LINK = BASE_URL.rstrip('/') + '/birthday/{friendid}'
 MSG = '''Birthday{plural} today:
 
 {birthdays}'''

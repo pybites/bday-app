@@ -9,9 +9,8 @@ from flask import request, url_for, send_file, session
 from sqlalchemy import asc
 import requests
 
-from env import LOGIN, PASSWORD
+from env import LOGIN, PASSWORD, BASE_URL
 from model import Birthday, app, db, THIS_YEAR
-from notify import BASE_URL
 from sms import send_sms
 from text_on_image import download_url, create_img_with_text, CARDS
 
