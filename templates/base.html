@@ -21,11 +21,13 @@
 				{% endif %}
 			</p>
         </div>
-        <div class="pure-u-1-5">
-            <form id="search" class="pure-form" action="/search" method="get">
-                <input type="text" name="name" value="{{ request.args.get('name', '') }}" placeholder="Search friend">
-            </form>
-        </div>
+	    {% if session.get('logged_in') %}
+			<div class="pure-u-1-5">
+				<form id="search" class="pure-form" action="/search" method="get">
+					<input type="text" name="name" value="{{ request.args.get('name', '') }}" placeholder="Search friend">
+				</form>
+			</div>
+	    {% endif %}
     </div>
 
     <div id="content">{% block content %}{% endblock %}</div>
