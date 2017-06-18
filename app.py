@@ -1,6 +1,7 @@
 import calendar
 from datetime import datetime, date, timedelta
 from functools import wraps
+import logging
 import re
 import time
 
@@ -19,6 +20,9 @@ TABS = [DEFAULT_FIRST_TAB] + [m[:3] for m in
                               list(calendar.month_name)[1:]]
 UPCOMING_DAYS = 14
 TWILIO_SMS_CHAR_LIMIT = 160
+
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def login_required(test):
@@ -241,13 +245,12 @@ def confirm_card(friendid):
         else:
             media = None
 
+        logger.debug('Called send_sms with: {}, {}, {}'.format(msg, media, friend.phone))
         try:
             send_sms(msg, media=media, to_phone=friend.phone)
+            logger.info('SMS sent ok')
         except Exception as exc:
-            print('Cannot send SMS:')
-            print(exc)
-            print('Called send_sms with:')
-            print(msg, media, friend.phone)
+            logger.error('Cannot send SMS: {}'.format(exc))
 
         confirmation = 'Birthday Message sent to {}'.format(friend.name)
         back_url = url_for('index')
