@@ -14,4 +14,4 @@ ADMIN_PHONE = config['phones']['admin']
 LOGIN = config['login']['user']
 PASSWORD = config['login']['password']
 
-BASE_URL = config['server']['url']
+BASE_URL = config['server']['url'].rstrip('/')
