@@ -2,6 +2,7 @@
 *db
 *pyc
 *swp
+*log
 cards/*png
 env.conf
 venv

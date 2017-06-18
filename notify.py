@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import logging
 import time
 
 from model import Birthday
@@ -15,6 +16,9 @@ CARD_LINK = BASE_URL.rstrip('/') + '/birthday/{friendid}'
 MSG = '''Birthday{plural} today:
 
 {birthdays}'''
+
+logging.basicConfig(filename='notify.log', level=logging.DEBUG)
+logger = logging.getLogger(__name__)  # only log for this module, not 3rd party
 
 
 def _create_msg(entries):
@@ -35,13 +39,22 @@ def job():
             extract('month', Birthday.bday) == TODAY.month,
             Birthday.phone != None)).all()  # noqa E711
 
-    if bdays:
-        msg = _create_msg(bdays)
+    if not bdays:
+        logger.debug('no birthdays')
+        return
+
+    logger.debug('upcoming birthday: {}'.format(bdays))
+    msg = _create_msg(bdays)
+    logger.debug('sending SMS msg: {}'.format(msg))
+    try:
         send_sms(msg)
+        logger.debug('message sent ok')
+    except Exception as exc:
+        logger.error('message not sent, error: {}'.format(exc))
 
 
 if __name__ == '__main__':
-    schedule.every().day.at('00:01').do(job)
+    schedule.every().day.at('00:05').do(job)
 
     while True:
         schedule.run_pending()
