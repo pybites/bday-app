@@ -36,9 +36,10 @@ class Birthday(db.Model):
 
 if __name__ == '__main__':
     # if ran as script create the birthday table and load in all birthdays
-    test_mode = True  # no real names
-    if len(sys.argv) > 1:
-        test_mode = False
+
+    test_mode = False
+    if len(sys.argv) > 1 and '-t' in sys.argv[1].lower():
+        test_mode = True
 
     fake = Factory.create()
 
@@ -48,7 +49,7 @@ if __name__ == '__main__':
     for bd in sorted(get_birthdays('cal.ics'),
                      key=lambda x: (x.bday.month, x.bday.day)):
 
-        # no real names
+        # test_mode = no real names
         if test_mode:
             name = fake.name()
         else:
