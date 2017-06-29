@@ -42,9 +42,9 @@ This app lets you:
 	* twilio phone = from step 1
 	* admin phone = your number, where you want to receive notification messages
 	* login section = define login for the Flask app
-	* server = unchanged if running locally, update to URL if deployed elsewhere 
+	* server = unchanged if running locally, update to URL if deployed elsewhere
 
-## Run it
+## Usage
 
 1. Kick off [the notifier cronjob](https://github.com/pybites/bday-app/blob/master/notify.py) to receive SMS notifications to your configured admin phone:
 
