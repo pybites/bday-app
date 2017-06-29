@@ -44,7 +44,8 @@ This app lets you:
 	* login section = define login for the Flask app
 	* server = unchanged if running locally, update to URL if deployed elsewhere
 
-## Usage
+
+## How to run it
 
 1. Kick off [the notifier cronjob](https://github.com/pybites/bday-app/blob/master/notify.py) to receive SMS notifications to your configured admin phone:
 
