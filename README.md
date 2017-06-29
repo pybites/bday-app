@@ -6,42 +6,50 @@ This app lets you:
 - send SMS notification messages of upcoming birthdays,
 - send text messages and simple ecards via SMS.
 
-Setup - how to run this on your box
+![app-printscreen](app-printscreen.png)
+
+## Installation
 
 1. Clone this repo:
 
 		$ git clone https://github.com/pybites/bday-app
 
-2. Import your birthday calendar from Facebook and save it as `cal.ics` in the app's folder
 
-3. Populate SQLite database with birthdays in `cal.ics`:
+2. Populate SQLite database with birthdays 
+
+	- Export your birthday calendar from Facebook and save it as `cal.ics` in the app's toplevel directory.
+	- Run `model.py` to import the birthdays into the DB. Use it with `-t` if you want to strip out real names.
 
 		$ python model.py
 
-	Use `-t` if you want to strip out real names.
-
-4. Copy the [settings template](https://github.com/pybites/bday-app/blob/master/env-example.conf):
-
-		$ cp env-example.conf env.conf
-
-5. Add details:
-	
-	* twilio_api = from step 1
-	* twilio phone = from step 1
-	* admin phone = your number, where you want to receive notification messages
-	* login / password = for the Flask app
-	* server = unchanged if running locally, update to URL if deployed elsewhere 
-
-6. Make a virtual env and install dependencies:
+3. Make a virtual env and install dependencies:
 
 		$ python3 -m venv venv 
 		$ source venv/bin/activate
 		$ pip install -r requirements.txt
 
-7. Kick off [the notifier cronjob](https://github.com/pybites/bday-app/blob/master/notify.py):
+## Configuration
+
+1. Create a Twilio account, get a phone number and API key and token.
+
+2. Copy the [settings template](https://github.com/pybites/bday-app/blob/master/env-example.conf) in place:
+
+		$ cp env-example.conf env.conf
+
+3. Update it with the correct settings:
+	
+	* twilio_api section = from step 1
+	* twilio phone = from step 1
+	* admin phone = your number, where you want to receive notification messages
+	* login section = define login for the Flask app
+	* server = unchanged if running locally, update to URL if deployed elsewhere 
+
+## Run it
+
+1. Kick off [the notifier cronjob](https://github.com/pybites/bday-app/blob/master/notify.py) to receive SMS notifications to your configured admin phone:
 
 		$ nohup ./notify.py &
 	
-8. Start the Flask app: 
+2. Start the Flask app to access the front-end: 
 
 		$ python app.py
