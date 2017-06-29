@@ -20,7 +20,7 @@ This app lets you:
 	- Export your birthday calendar from Facebook and save it as `cal.ics` in the app's toplevel directory.
 	- Run `model.py` to import the birthdays into the DB. Use it with `-t` if you want to strip out real names.
 
-		$ python model.py
+			$ python model.py
 
 3. Make a virtual env and install dependencies:
 
