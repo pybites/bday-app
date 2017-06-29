@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from datetime import datetime, timedelta
 import logging
 import time
