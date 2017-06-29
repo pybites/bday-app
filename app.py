@@ -161,7 +161,7 @@ def update(friendid):
         if not phone:
             error = 'Please fill in phone number'
         elif not re.match('^\+\d+$', phone):
-            error = 'Please fill in phone as +digits (e.g. +34666555444)'
+            error = 'Please use E.164 number formatting for phone (+34666555444, +442071838750)'
         elif _phone_already_in_db(phone):
             error = '{} already in database'.format(phone)
 

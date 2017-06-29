@@ -44,6 +44,7 @@ This app lets you:
 	* login section = define login for the Flask app
 	* server = unchanged if running locally, update to URL if deployed elsewhere
 
+	> NOTE: make sure you use E.164 number formatting for phone numbers (e.g. +34666555444, +442071838750). See Twilio's support article: [Formatting International Phone Numbers](https://support.twilio.com/hc/en-us/articles/223183008-Formatting-International-Phone-Numbers).
 
 ## How to run it
 
