@@ -1,8 +1,8 @@
 from twilio.rest import Client
-from env import ACCOUNT_SID, AUTH_TOKEN
+from env import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 from env import FROM_PHONE, ADMIN_PHONE
 
-CLIENT = Client(ACCOUNT_SID, AUTH_TOKEN)
+CLIENT = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 
 def send_sms(message, media=None, to_phone=ADMIN_PHONE):
